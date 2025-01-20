@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Linkly - URL Shortener</title>
+    <link rel="stylesheet" href="/home.css">
+</head>
+<body>
+    <header>
+        <div class="logo">Linkly</div>
+        <div class="actions">
+            <a href=<%= '/user/login' %>><button class="login">Login</button></a>
+            <a href=<%= '/user/signUp' %>><button class="register">Register Now</button></a>
+        </div>
+    </header>
+    <main>
+        <h1>Shorten Your Loooong Links :</h1>
+        <p class="description">Linkly is an efficient and easy-to-use URL shortening service that streamlines your online experience.</p>
+        <div class="shorten-section">
+            <form class="input-container" method="POST" action="/url">
+                <input type="text" placeholder="Enter the link here" name="url">
+                <button type="submit">Shorten Now!</button>
+            </form>
+            <p class="status">You can create <b>05</b> more links. Register <a href=<%= '/user/signUp' %> style="color:#2d74d9;">Now</a> to enjoy unlimited usage.</p>
+        </div>
+        <div class="table-container">
+            <% if (locals.urls) { %>
+                <table>
+                    <tr>
+                        <th>Short Link</th>
+                        <th>Original Link</th>
+                        <!-- <th>QR Code</th> -->
+                        <th>Clicks</th>
+                        <th>Status</th>
+                        <th>Date</th>
+                    </tr>
+                    <% urls.forEach(url => { %>
+                        <tr>
+                            <td>http://localhost:8080/url/<%= url.shortId %></td>
+                            <td><%= url.redirectURL %></td>
+                            <!-- <td>[QR Code]</td> -->
+                            <td><%= url.visitHistory.length %></td>
+                            <td style="color:green;">Active</td>
+                            <td><%= url.createdAt %></td>
+                        </tr>
+                    <% }) %>
+                    
+                    
+                    <!-- Additional Rows Here -->
+                </table>
+            <% } %>
+        </div>
+    </main>
+    <!-- <div class="theme-toggle">Dark Theme</div> -->
+    <footer>
+        Register <a href=<%= '/user/signUp' %> style="color:#2d74d9;">Now</a> to enjoy unlimited history.
+    </footer>
+</body>
+</html>
